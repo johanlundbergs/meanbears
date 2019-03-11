@@ -39,6 +39,7 @@ class preloadGame extends Phaser.Scene {
         this.load.image("tile", "tile.png");
         this.load.image("hero", "bearbae.gif");
         this.load.image("enemy", "meanbear.gif");
+        this.load.image("enemy2", "meanbear.gif");
     }
     create() {
         this.scene.start("PlayGame");
@@ -147,8 +148,12 @@ class playGame extends Phaser.Scene {
             if (enemy.body.touching.up && hero.body.touching.down) {
                 this.hero.body.velocity.y = -gameOptions.playerJump;
                 gameOptions.score = gameOptions.score + 50;
+                gameOptions.enemySpeed = gameOptions.enemySpeed - 20;
                 document.getElementById('scoreBoard').innerHTML = "Bearscore: " + gameOptions.score;
                 this.enemy.flipX = true;
+
+                this.enemy2 = this.physics.add.sprite(game.config.width / 4, 144, "enemy2");
+                this.enemy.body.velocity.x = gameOptions.enemySpeed;
             }
             else {
                 gameOptions.enemySpeed = 150;
